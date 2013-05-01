@@ -25,7 +25,7 @@ public class LoginTest {
 	@Test
 	public void testLogin() throws Exception {
 		login("guillaume@sample.com", "secret");
-		assertEquals(getLoggedInUser(), "(guillaume@sample.com)");
+		assertEquals("guillaume@sample.com", getLoggedInUser());
 		logout();
 	}
 
@@ -43,7 +43,7 @@ public class LoginTest {
 	}
 	
 	public String getLoggedInUser() {
-		return driver.findElement(By.cssSelector("#user span")).getText();
+		return driver.findElement(By.cssSelector("#user span")).getText().replaceAll("[\\(\\)]", "");
 	}
 
 	@After
