@@ -32,7 +32,8 @@ public class Homework1Test {
     driver.findElement(By.xpath("//ul[@id='projects']/li[4]/dl/dt")).click();
     driver.findElement(By.xpath("//ul[@id='projects']/li[4]/dl/dd/button")).click();
     driver.findElement(By.xpath("//ul[@id='projects']/li[4]/ul/li/input")).clear();
-    driver.findElement(By.xpath("//ul[@id='projects']/li[4]/ul/li/input")).sendKeys("session 2");
+    driver.findElement(By.xpath("//ul[@id='projects']/li[4]/ul/li/input")).sendKeys("session 2\n");
+    driver.switchTo().defaultContent();
     // ERROR: Caught exception [ERROR: Unsupported command [fireEvent | //ul[@id='projects']/li[4]/ul/li/input | blur]]
     driver.findElement(By.linkText("session 2")).click();
     driver.findElement(By.linkText("New folder")).click();
@@ -44,22 +45,22 @@ public class Homework1Test {
 
     driver.findElement(By.xpath("//article[@id='tasks']/div/header/input[2]")).clear();
     driver.findElement(By.xpath("//article[@id='tasks']/div/header/input[2]")).sendKeys("Homework");
+    driver.switchTo().defaultContent();
     driver.findElement(By.name("taskBody")).clear();
-    driver.findElement(By.name("taskBody")).sendKeys("a task");
-    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    driver.findElement(By.name("taskBody")).sendKeys("a task\n");
     driver.findElement(By.name("taskBody")).clear();
-    driver.findElement(By.name("taskBody")).sendKeys("another task");
+    driver.findElement(By.name("taskBody")).sendKeys("another task\t");
     driver.findElement(By.name("dueDate")).clear();
-    driver.findElement(By.name("dueDate")).sendKeys("15/05/13");
-    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    driver.findElement(By.name("dueDate")).sendKeys("15/05/13\n");
+    //driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
     driver.findElement(By.name("taskBody")).clear();
-    driver.findElement(By.name("taskBody")).sendKeys("third task");
+    driver.findElement(By.name("taskBody")).sendKeys("third task\t");
     driver.findElement(By.name("dueDate")).clear();
-    driver.findElement(By.name("dueDate")).sendKeys("15/05/13");
+    driver.findElement(By.name("dueDate")).sendKeys("15/05/13\t");
     driver.findElement(By.name("assignedTo")).clear();
-    driver.findElement(By.name("assignedTo")).sendKeys("guillaume@sample.com");
-    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.findElement(By.cssSelector("input.done")).click();
+    driver.findElement(By.name("assignedTo")).sendKeys("guillaume@sample.com\n");
+    //driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    driver.findElement(By.xpath("//div[@data-folder-id='Homework']/ul/li[1]/input")).click();
   }
 
   @After

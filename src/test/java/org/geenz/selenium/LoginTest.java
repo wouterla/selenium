@@ -1,4 +1,4 @@
-package org.geenz.selenium;
+package com.example.tests;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -18,47 +18,23 @@ public class LoginTest {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:9000";
+    baseUrl = "http://localhost:9000/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testLogin() throws Exception {
-    driver.get(baseUrl + "/login");
-
-    login("guillaume@sample.com", "secret");
-
-    assertTrue(getLoggedInUser().startsWith("Guillaume Bort"));
-
-    logout();
-  }
-
-  @Test
-  public void testIncorrectPassword() {
-    driver.get(baseUrl + "/login");
-
-    login("guillaume@sample.com", "terces");
-
-    assertEquals("Invalid user or password", getErrorMessage());
-  }
-
-  public String getErrorMessage() {
-    return driver.findElement(By.cssSelector("p[class=\"error\"]")).getText().trim();
-  }
-
-  public String getLoggedInUser() {
-    return driver.findElement(By.id("user")).getText();
-  }
-
-  public void login(String email, String password) {
+    driver.get(baseUrl + "login");
     driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(email);
+    driver.findElement(By.name("email")).sendKeys("guillaume@sample.com");
     driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys(password);
+    driver.findElement(By.name("password")).sendKeys("secret");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-  }
-
-  public void logout() {
+    try {
+      assertTrue(driver.findElement(By.id("user")).getText().matches("^Guillaume Bort[\\s\\S]*$"));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
     driver.findElement(By.linkText("Logout")).click();
   }
 
