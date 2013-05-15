@@ -31,7 +31,6 @@ public class HomeWork_FVP_Test {
 		WebElement newProjectElement = createNewProject(newGroupElement, "SESSION 2");
 		WebElement folderElement = createNewFolder(newProjectElement, "Homework");
 		WebElement task1Element = createNewTask(folderElement, "a task", null, null);
-		System.out.println("before task2");
 		String localeIndepentDate = "05/05/13"; // works with both NL and US Firefox locale
 		createNewTask(folderElement, "another task", localeIndepentDate, null);
 		createNewTask(folderElement, "third task", localeIndepentDate, "guillaume@sample.com");
