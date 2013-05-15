@@ -12,10 +12,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class HomeWork_FVP {
+public class HomeWork_FVP_Test {
 	private WebDriver driver;
 	private String baseUrl;
-	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	@Before
@@ -34,10 +33,17 @@ public class HomeWork_FVP {
 		WebElement task1Element = createNewTask(folderElement, "a task", null, null);
 		System.out.println("before task2");
 		String localeIndepentDate = "05/05/13"; // works with both NL and US Firefox locale
-		WebElement task2Element = createNewTask(folderElement, "another task", localeIndepentDate, null);
-		WebElement task3Element = createNewTask(folderElement, "third task", localeIndepentDate, "guillaume@sample.com");
+		createNewTask(folderElement, "another task", localeIndepentDate, null);
+		createNewTask(folderElement, "third task", localeIndepentDate, "guillaume@sample.com");
 		markTaskDone(task1Element);
 		logout();
+	}
+
+	private void login(String email, String password) {
+		driver.get(baseUrl + "/login");
+		inputNewText(driver.findElement(By.name("email")), email);
+		inputNewText(driver.findElement(By.name("password")), password);
+		driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
 	}
 
 	private WebElement createNewGroup(String groupName) {
@@ -60,6 +66,7 @@ public class HomeWork_FVP {
 		enterNewText(inputElement, projectName);
 		return lastProjectElement;
 	}
+
 	
 	private WebElement createNewFolder(WebElement projectElement, String folderName) {
 		projectElement.findElement(By.cssSelector("a.name")).click();
@@ -95,6 +102,10 @@ public class HomeWork_FVP {
 		taskElement.findElement(By.cssSelector("input.done")).click();
 	}
 	
+	private void logout() {
+		driver.findElement(By.linkText("Logout")).click();
+	}
+	
 	private void inputNewText(WebElement element, String text) {
 		element.clear();
 		element.sendKeys(text);
@@ -104,19 +115,6 @@ public class HomeWork_FVP {
 		inputNewText(element, text + "\n");
 	}
 
-	private void login(String email, String password) {
-		driver.get(baseUrl + "/login");
-		driver.findElement(By.name("email")).clear();
-		driver.findElement(By.name("email")).sendKeys(email);
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-	}
-
-	private void logout() {
-		driver.findElement(By.linkText("Logout")).click();
-	}
-	
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
