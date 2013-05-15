@@ -79,10 +79,6 @@ public class HomeWork_FVP {
 		inputNewTextConditionally(addTaskForm, "taskBody", taskName);
 		inputNewTextConditionally(addTaskForm, "dueDate", dueDate);
 		inputNewTextConditionally(addTaskForm, "assignedTo", assignedTo);
-//		enterNewText(addTaskForm.findElement(By.name("taskBody")), taskName);
-//		if (dueDate != null) enterNewText(addTaskForm.findElement(By.name("dueDate")), dueDate);
-//		if (assignedTo != null) enterNewText(addTaskForm.findElement(By.name("assignedTo")), assignedTo);
-//		addTaskForm.findElement(By.cssSelector("input[type='submit']")).click();
 		addTaskForm.submit();
 		return getTask(folderElement, taskName);
 	}
